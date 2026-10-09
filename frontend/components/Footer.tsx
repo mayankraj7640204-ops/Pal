@@ -9,7 +9,7 @@ export default function Footer() {
       
       <div className="site-footer__inner">
         <div className="site-footer__top">
-          <h2>Proven Advanced Propulsion Technology</h2>
+          <h2>Never Miss a Critical Message Again</h2>
           
           <nav className="site-footer__nav" aria-label="Footer navigation">
             <a href="#company">Company</a>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mainframe",
+  title: "SAAR",
   description: "Creative agency landing page",
 };
 

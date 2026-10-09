@@ -59,7 +59,7 @@ export default function Home() {
   }, []);
 
   // Typewriter effect for hero text
-  const { displayed, done } = useTypewriter("Glad you stopped in. Good taste tends to find us. Now, what are we building?");
+  const { displayed, done } = useTypewriter("Glad you stopped in. Good taste tends to find us. what are we doing now?");
 
   // Show buttons independently of typewriter
   useEffect(() => {
@@ -137,7 +137,7 @@ export default function Home() {
       <nav className="fixed left-0 right-0 top-0 z-10 flex w-full items-center justify-between px-5 py-4 sm:px-8 sm:py-5">
         <div className="flex flex-row items-center gap-3">
           <span className="text-[21px] tracking-tight text-white sm:text-[26px]" style={{ fontFamily: 'var(--font-heading)' }}>
-            Mainframe&reg;
+            SAAR&reg;
           </span>
           <span className="select-none text-[25px] tracking-[-0.02em] text-white sm:text-[30px]">
             ✳︎
@@ -146,13 +146,13 @@ export default function Home() {
 
         {/* Desktop Links */}
         <div className="hidden flex-row text-[23px] text-white md:flex">
-          <a href="#" className="transition-opacity hover:opacity-60">Labs</a>
+          <a href="#" className="transition-opacity hover:opacity-60">Summaries</a>
           <span className="mr-2">, </span>
-          <a href="#" className="transition-opacity hover:opacity-60">Studio</a>
+          <a href="#" className="transition-opacity hover:opacity-60">Tasks</a>
           <span className="mr-2">, </span>
-          <a href="#" className="transition-opacity hover:opacity-60">Openings</a>
+          <a href="#" className="transition-opacity hover:opacity-60">Privacy</a>
           <span className="mr-2">, </span>
-          <a href="#" className="transition-opacity hover:opacity-60">Shop</a>
+          <a href="#" className="transition-opacity hover:opacity-60">Demo</a>
         </div>
 
         {/* Desktop CTA */}
@@ -189,10 +189,10 @@ export default function Home() {
           isMobileNavOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
         }`}
       >
-        <a href="#" className="text-[32px] font-medium text-white">Labs</a>
-        <a href="#" className="text-[32px] font-medium text-white">Studio</a>
-        <a href="#" className="text-[32px] font-medium text-white">Openings</a>
-        <a href="#" className="text-[32px] font-medium text-white">Shop</a>
+        <a href="#" className="text-[32px] font-medium text-white">Summaries</a>
+        <a href="#" className="text-[32px] font-medium text-white">Tasks</a>
+        <a href="#" className="text-[32px] font-medium text-white">Privacy</a>
+        <a href="#" className="text-[32px] font-medium text-white">Demo</a>
         {user ? (
           <button onClick={() => supabase.auth.signOut()} className="text-[32px] font-medium text-white underline underline-offset-2 text-left">Sign Out</button>
         ) : (
@@ -206,7 +206,7 @@ export default function Home() {
           {/* Blurred Intro Label */}
           <div className="pointer-events-none mb-5 select-none text-white sm:mb-6" style={{ fontSize: 'clamp(18px, 4vw, 26px)', lineHeight: 1.3, fontWeight: 400, filter: 'blur(4px)' }}>
             Hey there, meet A.R.I.A,<br />
-            Mainframe&apos;s Adaptive Response Interface Agent
+            SAAR&apos;s Adaptive Response Interface Agent
           </div>
 
           {/* Typewriter Text */}
@@ -232,13 +232,14 @@ export default function Home() {
               transition: 'opacity 0.4s ease, transform 0.4s ease'
             }}
           >
-            {["Pitch us an idea", "Come work here", "Send a brief hello", "See how we operate"].map((label) => (
-              <button
+            {["Upload Chat", "Get Quick Summary", "See My Tasks", "See how we operate"].map((label) => (
+              <Link
+                href="/auth"
                 key={label}
                 className="mx-[0.2em] mb-[0.4em] inline-flex items-center justify-center whitespace-nowrap rounded-full border border-black/10 bg-white px-4 py-[0.3em] text-[13px] text-black transition-colors duration-200 hover:bg-black hover:text-white sm:px-5 sm:text-[15px]"
               >
                 {label}
-              </button>
+              </Link>
             ))}
 
           </div>
