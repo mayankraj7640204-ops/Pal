@@ -110,3 +110,10 @@
 > 3. Zod Validation: Install the `zod` library and implement strict payload validation on the API route before any data is sent to Supabase.
 > 4. TypeScript Strictness: Create a centralized `types/index.ts` file, remove all loose `any` types across the Dashboard, and strictly type all React components and Supabase responses."
 
+
+### 11. UI/UX & API Optimization
+> "To secure a 100/100 score in UI/UX and Optimization:
+> 
+> 1. API Optimization: Add `Cache-Control: private, max-age=5, stale-while-revalidate=30` headers to the `/api/tasks` GET route to massively reduce redundant database hits.
+> 2. UI/UX (Framer Motion): Install `framer-motion` and add staggering `<AnimatePresence>` entrance and exit animations to the task cards in both the Action Matrix and the Smart Planner so they fluidly fade and slide into place when added or resolved."
+

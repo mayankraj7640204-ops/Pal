@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar as CalendarIcon, Plus, Printer, CheckCircle2, Circle, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 
 import { ActionTask } from '@/types';
@@ -266,12 +267,20 @@ export default function SmartPlannerPage() {
                 </div>
               ) : (
                 <div className="flex flex-col gap-3">
-                  {tasks.filter(t => !t.is_completed).map((task) => {
-                    const print = needsPrintout(task);
-                    
-                    return (
-                      <div key={task.id} className="bg-white dark:bg-[#161B22] border border-gray-200 dark:border-gray-800 rounded-2xl p-5 flex flex-col shadow-sm transition-colors duration-300 group">
-                        <div className="flex items-start justify-between gap-4">
+                  <AnimatePresence>
+                    {tasks.filter(t => !t.is_completed).map((task, index) => {
+                      const print = needsPrintout(task);
+                      
+                      return (
+                        <motion.div 
+                          key={task.id}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, scale: 0.95 }}
+                          transition={{ duration: 0.3, delay: index * 0.05 }}
+                          className="bg-white dark:bg-[#161B22] border border-gray-200 dark:border-gray-800 rounded-2xl p-5 flex flex-col shadow-sm transition-colors duration-300 group"
+                        >
+                          <div className="flex items-start justify-between gap-4">
                           <div className="flex flex-col gap-1">
                             <h4 className="text-gray-900 dark:text-white font-medium">{task.task_description}</h4>
                             {task.due_date && (
@@ -306,9 +315,10 @@ export default function SmartPlannerPage() {
                             </a>
                           </div>
                         )}
-                      </div>
+                      </motion.div>
                     );
                   })}
+                  </AnimatePresence>
                 </div>
               )}
             </div>

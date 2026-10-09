@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Check, Clock, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@/utils/supabase/client';
 
 import { ActionTask } from '@/types';
@@ -121,9 +122,19 @@ export default function ActionMatrixPage() {
               </div>
             ) : (
               <div className="flex flex-col gap-4">
-                {pendingTasks.map((task) => (
-                  <TaskCard key={task.id} task={task} onToggle={() => toggleTask(task.id)} />
-                ))}
+                <AnimatePresence>
+                  {pendingTasks.map((task, index) => (
+                    <motion.div
+                      key={task.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <TaskCard task={task} onToggle={() => toggleTask(task.id)} />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </div>
             )}
           </div>
@@ -147,9 +158,19 @@ export default function ActionMatrixPage() {
               </div>
             ) : (
               <div className="flex flex-col gap-4">
-                {resolvedTasks.map((task) => (
-                  <TaskCard key={task.id} task={task} onToggle={() => toggleTask(task.id)} />
-                ))}
+                <AnimatePresence>
+                  {resolvedTasks.map((task, index) => (
+                    <motion.div
+                      key={task.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
+                    >
+                      <TaskCard task={task} onToggle={() => toggleTask(task.id)} />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
               </div>
             )}
           </div>

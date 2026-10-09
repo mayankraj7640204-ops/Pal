@@ -89,7 +89,12 @@ export async function GET(req: NextRequest) {
       throw error;
     }
 
-    return NextResponse.json({ data }, { status: 200 });
+    return NextResponse.json({ data }, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'private, max-age=5, stale-while-revalidate=30'
+      }
+    });
   } catch (error: any) {
     console.error('API Error:', error);
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
