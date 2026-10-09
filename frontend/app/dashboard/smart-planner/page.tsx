@@ -68,7 +68,7 @@ export default function SmartPlannerPage() {
       due_date: newTaskDate ? new Date(newTaskDate).toISOString() : null,
       requires_print: requiresPrint,
       is_completed: false,
-      user_id: userData?.user?.id || null,
+      user_id: userData?.user?.id || undefined,
       source_context: "Manual Entry"
     };
 
