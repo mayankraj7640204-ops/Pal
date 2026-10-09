@@ -5,7 +5,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { createClient } from '../../utils/supabase/client';
 import Link from 'next/link';
 import { 
-  Sun, Moon, Calendar, Apple, BookOpen, MessageCircle, Heart, 
+  Sun, Moon, Calendar, MessageCircle, Link as LinkIcon, Lock, Database, LayoutDashboard, Search,
   Settings, User as UserIcon, ShieldCheck, ChevronRight, Menu, LogOut 
 } from 'lucide-react';
 
@@ -71,12 +71,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {/* Logo and Close button */}
         <div className="flex h-20 items-center justify-between px-6 pt-4">
           <Link href="/" className="flex items-center gap-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded bg-[#e3000f] text-white font-bold tracking-tight">
-              P
+            <div className="flex h-8 w-8 items-center justify-center rounded bg-[#10B981] text-[#0D1117] font-bold tracking-tight">
+              S
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight leading-tight">PALS.</span>
-              <span className="text-[9px] uppercase tracking-wider text-gray-500">Your cycle, understood</span>
+              <span className="text-xl font-bold tracking-tight leading-tight">SAAR.</span>
+              <span className="text-[9px] uppercase tracking-wider text-gray-500">Local Intelligence.</span>
             </div>
           </Link>
           <button 
@@ -94,12 +94,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           </div>
           
           <nav className="flex flex-col gap-1">
-            <NavItem href="/dashboard" icon={<Sun size={18} />} label="Today" active={pathname === '/dashboard'} />
-            <NavItem href="/dashboard/cycle" icon={<Calendar size={18} />} label="Cycle tracker" active={pathname === '/dashboard/cycle'} />
-            <NavItem href="/dashboard/nutrition" icon={<Apple size={18} />} label="Nutrition" active={pathname === '/dashboard/nutrition'} />
-            <NavItem href="/dashboard/student" icon={<BookOpen size={18} />} label="Student mode" active={pathname === '/dashboard/student'} />
-            <NavItem href="/dashboard/ask" icon={<MessageCircle size={18} />} label="Ask PALS" active={pathname === '/dashboard/ask'} />
-            <NavItem href="/dashboard/pcos" icon={<Heart size={18} />} label="PCOS Wellness" notification active={pathname === '/dashboard/pcos'} />
+            <NavItem href="/dashboard" icon={<LayoutDashboard size={18} />} label="Dashboard" active={pathname === '/dashboard'} />
+            <NavItem href="/dashboard/ask" icon={<MessageCircle size={18} />} label="Ask SAAR" active={pathname === '/dashboard/ask'} />
+            <NavItem href="/dashboard/action-matrix" icon={<Calendar size={18} />} label="Action Matrix" active={pathname === '/dashboard/action-matrix'} />
+            <NavItem href="/dashboard/extracted-media" icon={<LinkIcon size={18} />} label="Extracted Media" active={pathname === '/dashboard/extracted-media'} />
+            <NavItem href="/dashboard/vault" icon={<Database size={18} />} label="Local Vault" active={pathname === '/dashboard/vault'} />
           </nav>
         </div>
 
@@ -107,10 +106,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="px-4 pb-6">
           {/* Privacy Badge */}
           <div className="mb-6 rounded-xl bg-gray-100 dark:bg-[#161616] p-4 flex gap-3 border border-gray-200 dark:border-[#222]">
-            <ShieldCheck size={18} className="text-gray-500 dark:text-gray-400 mt-0.5 shrink-0" />
+            <ShieldCheck size={18} className="text-[#10B981] mt-0.5 shrink-0" />
             <div className="flex flex-col">
-              <span className="text-[12px] font-medium text-gray-800 dark:text-gray-200">Your health journey is personal.</span>
-              <span className="text-[10px] text-gray-500 mt-1">Saved safely and securely.</span>
+              <span className="text-[12px] font-medium text-gray-800 dark:text-gray-200">Zero-Cloud Privacy.</span>
+              <span className="text-[10px] text-gray-500 mt-1">Your chats never leave this device.</span>
             </div>
           </div>
 
@@ -141,7 +140,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               </div>
               <div className="flex flex-col">
                 <span className="text-[14px] font-medium text-gray-900 dark:text-white">{user?.user_metadata?.name || 'User'}</span>
-                <span className="text-[11px] text-gray-500">Non-vegetarian</span>
+                <span className="text-[11px] text-gray-500">Admin / Local Node</span>
               </div>
             </Link>
             <button 
@@ -193,16 +192,16 @@ function NavItem({ href, icon, label, active, notification }: { href: string, ic
       href={href} 
       className={`group flex items-center justify-between rounded-xl px-4 py-3 transition-colors ${
         active 
-          ? 'bg-red-50 dark:bg-[#780014] text-red-600 dark:text-white font-medium' 
+          ? 'bg-emerald-50 dark:bg-[#10B981]/20 text-[#10B981] font-medium' 
           : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-[#161616] hover:text-gray-900 dark:hover:text-gray-200'
       }`}
     >
       <div className="flex items-center gap-4">
-        <span className={`${active ? 'text-red-500 dark:text-white' : 'text-gray-500 group-hover:text-gray-900 dark:group-hover:text-gray-300'}`}>{icon}</span>
+        <span className={`${active ? 'text-[#10B981]' : 'text-gray-500 group-hover:text-gray-900 dark:group-hover:text-gray-300'}`}>{icon}</span>
         <span className="text-[14px]">{label}</span>
       </div>
       {notification && (
-        <div className="h-1.5 w-1.5 rounded-full bg-[#e3000f]"></div>
+        <div className="h-1.5 w-1.5 rounded-full bg-[#10B981]"></div>
       )}
     </Link>
   );

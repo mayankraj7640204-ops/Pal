@@ -15,7 +15,7 @@ export default function AskPalsPage() {
     {
       id: '1',
       role: 'assistant',
-      content: "Hi there! I'm PALS, your personal cycle and wellness assistant. How can I help you today?"
+      content: "Hi there! I'm SAAR, your local AI chat distillation assistant. Ask me anything about your unread messages!"
     }
   ]);
   const [input, setInput] = useState('');
@@ -100,7 +100,7 @@ export default function AskPalsPage() {
           <Sparkles size={20} />
         </div>
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Ask PALS</h1>
+          <h1 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Ask SAAR</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400">Powered by Google Gemini</p>
         </div>
       </div>
@@ -157,7 +157,7 @@ export default function AskPalsPage() {
               </div>
               <div className="px-5 py-4 rounded-2xl bg-white dark:bg-[#111] border border-gray-200 dark:border-[#1a1a1a] rounded-tl-sm flex items-center gap-2">
                 <Loader2 size={16} className="text-[#e3000f] animate-spin" />
-                <span className="text-sm text-gray-500 dark:text-gray-400">PALS is thinking...</span>
+                <span className="text-sm text-gray-500 dark:text-gray-400">SAAR is thinking...</span>
               </div>
             </motion.div>
           )}

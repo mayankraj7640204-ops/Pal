@@ -10,8 +10,8 @@ export async function POST(req: NextRequest) {
 
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ 
-      model: 'gemini-3.5-flash',
-      systemInstruction: "You are PALS, a helpful, empathetic, and knowledgeable cycle and wellness assistant. You provide concise and accurate answers."
+      model: 'gemini-flash-latest',
+      systemInstruction: "You are SAAR, a helpful, precise, and fast local AI chat distillation assistant. You help the user summarize and query their large volumes of group chat messages to extract action items, deadlines, and important context."
     });
 
     const { messages } = await req.json();
