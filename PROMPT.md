@@ -101,3 +101,12 @@
 >   - Render an Electric Emerald action button: "Order Printout via EzeePrints ↗".
 >   - Make it a direct link to `https://www.ezeeprints.in/` targeting `_blank` with `rel="noopener noreferrer"`.
 >   - Add a subtitle under the card: "Physical printout required for submission.""
+
+### 10. Security & Optimization (RLS & Validation)
+> "Upgrade the backend architecture to max out Security and Code Standards scores.
+> 
+> 1. Security (Row Level Security): Use the Supabase client to execute raw SQL that enables RLS on the `action_items` and `extracted_links` tables. Create 8 mathematical cryptographic policies ensuring users can only SELECT, INSERT, UPDATE, and DELETE rows where `auth.uid() = user_id`.
+> 2. Backend API (Service Layer): Create a secure Next.js API route (`/api/tasks/route.ts`) to act as a true backend service layer. Prevent the frontend from directly writing to the database.
+> 3. Zod Validation: Install the `zod` library and implement strict payload validation on the API route before any data is sent to Supabase.
+> 4. TypeScript Strictness: Create a centralized `types/index.ts` file, remove all loose `any` types across the Dashboard, and strictly type all React components and Supabase responses."
+
