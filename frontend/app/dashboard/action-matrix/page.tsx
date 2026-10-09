@@ -3,13 +3,7 @@ import { useState, useEffect } from 'react';
 import { Check, Clock, CheckCircle2 } from 'lucide-react';
 import { createClient } from '@/utils/supabase/client';
 
-interface ActionTask {
-  id: string;
-  task_description: string;
-  source_context?: string;
-  is_completed: boolean;
-  is_revised?: boolean;
-}
+import { ActionTask } from '@/types';
 
 const mockTasks: ActionTask[] = [
   {
@@ -41,7 +35,12 @@ export default function ActionMatrixPage() {
     fetchTasks();
   }, []);
 
-  const fetchTasks = async () => {
+  /**
+   * Fetches the user's active tasks directly from the Supabase client.
+   * Note: In a production Service Layer architecture, this would route through 
+   * the /api/tasks endpoint with server-side validation.
+   */
+  const fetchTasks = async (): Promise<void> => {
     const { data, error } = await supabase
       .from('action_items')
       .select('*')
@@ -55,7 +54,10 @@ export default function ActionMatrixPage() {
     setIsLoading(false);
   };
 
-  const toggleTask = async (id: string) => {
+  /**
+   * Optimistically toggles the completion state of a task.
+   */
+  const toggleTask = async (id: string): Promise<void> => {
     const taskToUpdate = tasks.find(t => t.id === id);
     if (!taskToUpdate) return;
     

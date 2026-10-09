@@ -3,17 +3,15 @@ import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 import { Calendar as CalendarIcon, Plus, Printer, CheckCircle2, Circle, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 
-interface ActionTask {
-  id: string;
-  task_description: string;
-  due_date?: string | null;
-  is_completed: boolean;
-  requires_print?: boolean;
-}
+import { ActionTask } from '@/types';
 
 const printKeywords = ['report', 'print', 'submission', 'hard copy', 'project'];
 
-const needsPrintout = (task: ActionTask) => {
+/**
+ * Utility function to determine if a task requires physical dispatch.
+ * Checks the boolean flag or scans the task description for keywords.
+ */
+const needsPrintout = (task: ActionTask): boolean => {
   if (task.requires_print) return true;
   const lowerDesc = task.task_description.toLowerCase();
   return printKeywords.some(keyword => lowerDesc.includes(keyword));
@@ -38,7 +36,12 @@ export default function SmartPlannerPage() {
     setCurrentDate(new Date());
   }, []);
 
-  const fetchTasks = async () => {
+  /**
+   * Fetches the user's active tasks directly from the Supabase client.
+   * Note: In a production Service Layer architecture, this would route through 
+   * the /api/tasks endpoint with server-side validation.
+   */
+  const fetchTasks = async (): Promise<void> => {
     const { data, error } = await supabase
       .from('action_items')
       .select('*')
@@ -52,14 +55,15 @@ export default function SmartPlannerPage() {
     setIsLoading(false);
   };
 
-  const handleAddTask = async (e: React.FormEvent) => {
+  const handleAddTask = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     if (!newTaskTitle.trim()) return;
     setIsSubmitting(true);
 
     const { data: userData } = await supabase.auth.getUser();
     
-    const newTask = {
+    // Construct strongly-typed Task object
+    const newTask: Partial<ActionTask> = {
       task_description: newTaskTitle,
       due_date: newTaskDate ? new Date(newTaskDate).toISOString() : null,
       requires_print: requiresPrint,
@@ -82,7 +86,10 @@ export default function SmartPlannerPage() {
     setIsSubmitting(false);
   };
 
-  const toggleTask = async (id: string) => {
+  /**
+   * Optimistically toggles the completion state of a task.
+   */
+  const toggleTask = async (id: string): Promise<void> => {
     const taskToUpdate = tasks.find(t => t.id === id);
     if (!taskToUpdate) return;
     
