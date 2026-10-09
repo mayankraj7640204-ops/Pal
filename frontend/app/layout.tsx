@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SAAR",
-  description: "Creative agency landing page",
+  title: "SAAR | Zero-Cloud Local Intelligence",
+  description: "Extract the signal. Drop the noise. A privacy-first local AI distillation engine for chaotic group chats. Built for the PALS Hackathon.",
+  keywords: ["AI", "Local AI", "Privacy", "Chat Distillation", "Zero-Cloud"],
 };
 
 export default function RootLayout({

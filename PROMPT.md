@@ -115,7 +115,8 @@
 > "To secure a 100/100 score in UI/UX and Optimization:
 > 
 > 1. API Optimization: Add `Cache-Control: private, max-age=5, stale-while-revalidate=30` headers to the `/api/tasks` GET route to massively reduce redundant database hits.
-> 2. UI/UX (Framer Motion): Install `framer-motion` and add staggering `<AnimatePresence>` entrance and exit animations to the task cards in both the Action Matrix and the Smart Planner so they fluidly fade and slide into place when added or resolved."
+> 2. UI/UX (Framer Motion): Install `framer-motion` and add staggering `<AnimatePresence>` entrance and exit animations to the task cards in both the Action Matrix and the Smart Planner so they fluidly fade and slide into place when added or resolved.
+> 3. SEO & Next.js App Router Best Practices: Inject highly targeted technical SEO metadata keywords ("Zero-Cloud", "Local Intelligence") into the root `layout.tsx`. Furthermore, establish a strict Next.js React Suspense Boundary by creating a global `loading.tsx` file that intercepts all Dashboard routing with a smooth "Decrypting Vault..." cryptographic loader."
 
 ### 12. Mainframe Creative Agency Landing Page (Frontend Foundation)
 > "Build a full-screen hero landing page for a creative agency called "Mainframe" using React, TypeScript, Vite, and Tailwind CSS. Here is every detail:
