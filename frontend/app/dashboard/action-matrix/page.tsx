@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { Check, Clock, CheckCircle2 } from 'lucide-react';
-import { createClient } from '../../../utils/supabase/client';
+import { createClient } from '@/utils/supabase/client';
 
 interface ActionTask {
   id: string;
