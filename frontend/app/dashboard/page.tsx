@@ -168,15 +168,15 @@ export default function DashboardPage() {
   }, [chatHistory, isChatting]);
 
   return (
-    <div className="flex flex-col p-8 md:p-12 mx-auto w-full min-h-screen font-sans bg-[#0D1117] text-white">
+    <div className="flex flex-col p-8 md:p-12 mx-auto w-full min-h-screen font-sans bg-gray-50 dark:bg-[#0D1117] text-gray-900 dark:text-white transition-colors duration-300">
       <div className="max-w-[1200px] w-full mx-auto flex flex-col">
         {/* 1. TOP HEADER */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between w-full mb-10 gap-4">
           <div className="flex flex-col">
-            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-2 text-white flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight mb-2 text-gray-900 dark:text-white flex items-center gap-3">
               Your Catch-Up Digest, {firstName} ✨
             </h1>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               Here is the signal from the noise. <span className="font-mono text-[#10B981]">{stats.total_messages}</span> messages distilled locally.
             </p>
           </div>
@@ -191,7 +191,7 @@ export default function DashboardPage() {
           <button 
             onClick={() => fileInputRef.current?.click()}
             disabled={isProcessing}
-            className={`flex items-center gap-2 transition-colors text-[#0D1117] px-5 py-3 rounded-xl font-bold text-sm ${isProcessing ? 'bg-gray-500 cursor-not-allowed' : 'bg-[#10B981] hover:bg-[#0ea5e9]'}`}
+            className={`flex items-center gap-2 transition-colors text-white dark:text-[#0D1117] px-5 py-3 rounded-xl font-bold text-sm ${isProcessing ? 'bg-gray-400 dark:bg-gray-500 cursor-not-allowed' : 'bg-[#10B981] hover:bg-[#0ea5e9]'}`}
           >
             {isProcessing ? <><Loader2 className="animate-spin" size={18} /> Processing...</> : <><Upload size={18} /> Upload Chat Log (.txt)</>}
           </button>
@@ -201,13 +201,13 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
           
           {/* 2. LEFT CARD: CHAT DISTILLATION RING */}
-          <div className="lg:col-span-3 bg-[#161B22] border border-gray-800 rounded-3xl p-8 flex flex-col relative overflow-hidden">
+          <div className="lg:col-span-3 bg-white dark:bg-[#161B22] border border-gray-200 dark:border-gray-800 rounded-3xl p-8 flex flex-col relative overflow-hidden transition-colors duration-300">
             <div className="flex justify-between items-start mb-10 relative z-10">
               <div>
-                <span className="text-[10px] font-bold uppercase tracking-[2px] text-gray-500 mb-1 block">Overview</span>
-                <h2 className="text-2xl font-medium text-white">Distillation Ring</h2>
+                <span className="text-[10px] font-bold uppercase tracking-[2px] text-gray-400 dark:text-gray-500 mb-1 block">Overview</span>
+                <h2 className="text-2xl font-medium text-gray-900 dark:text-white">Distillation Ring</h2>
               </div>
-              <div className="flex items-center gap-2 bg-[#0D1117] border border-gray-800 px-3 py-1.5 rounded-full">
+              <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#0D1117] border border-gray-200 dark:border-gray-800 px-3 py-1.5 rounded-full transition-colors duration-300">
                 <div className={`w-2 h-2 rounded-full ${isProcessing ? 'bg-yellow-500 animate-pulse' : 'bg-[#10B981]'}`}></div>
                 <span className="text-xs font-medium text-gray-300">{isProcessing ? 'Processing Data...' : 'Local Processing Active'}</span>
               </div>
@@ -223,27 +223,27 @@ export default function DashboardPage() {
                   <circle cx="96" cy="96" r="94" fill="none" stroke="#3B82F6" strokeWidth="4" strokeDasharray="590" strokeDashoffset="570" className="opacity-80 transition-all duration-1000" />
                 </svg>
                 
-                <span className="text-4xl font-mono text-white transition-all">{stats.total_messages}</span>
-                <span className="text-[10px] uppercase tracking-wider text-gray-400 mt-2 text-center">Unread<br/>Messages</span>
+                <span className="text-4xl font-mono text-gray-900 dark:text-white transition-all">{stats.total_messages}</span>
+                <span className="text-[10px] uppercase tracking-wider text-gray-500 dark:text-gray-400 mt-2 text-center">Unread<br/>Messages</span>
               </div>
 
               {/* Vertically stacked stats */}
               <div className="flex flex-col gap-6 w-full">
-                <div className="flex items-center gap-4 bg-[#0D1117] border border-gray-800 p-4 rounded-xl border-l-2 border-l-red-500 transition-all">
+                <div className="flex items-center gap-4 bg-gray-50 dark:bg-[#0D1117] border border-gray-200 dark:border-gray-800 p-4 rounded-xl border-l-2 border-l-red-500 transition-all">
                   <div className="w-3 h-3 rounded-full bg-red-500 shrink-0"></div>
                   <div className="flex flex-col">
-                    <span className="font-mono text-lg text-white">{stats.action_count} Action Items</span>
+                    <span className="font-mono text-lg text-gray-900 dark:text-white">{stats.action_count} Action Items</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 bg-[#0D1117] border border-gray-800 p-4 rounded-xl border-l-2 border-l-blue-500 transition-all">
+                <div className="flex items-center gap-4 bg-gray-50 dark:bg-[#0D1117] border border-gray-200 dark:border-gray-800 p-4 rounded-xl border-l-2 border-l-blue-500 transition-all">
                   <div className="w-3 h-3 rounded-full bg-blue-500 shrink-0"></div>
                   <div className="flex flex-col">
-                    <span className="font-mono text-lg text-white">{stats.mention_count} Direct Mentions</span>
+                    <span className="font-mono text-lg text-gray-900 dark:text-white">{stats.mention_count} Direct Mentions</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 bg-[#0D1117] border border-gray-800 p-4 rounded-xl border-l-2 border-l-[#10B981] transition-all">
+                <div className="flex items-center gap-4 bg-gray-50 dark:bg-[#0D1117] border border-gray-200 dark:border-gray-800 p-4 rounded-xl border-l-2 border-l-[#10B981] transition-all">
                   <div className="w-3 h-3 rounded-full bg-[#10B981] shrink-0"></div>
                   <div className="flex flex-col">
                     <span className="font-mono text-lg text-[#10B981]">{stats.noise_filtered} Noise Filtered</span>
@@ -254,11 +254,11 @@ export default function DashboardPage() {
           </div>
 
           {/* 3. RIGHT CARD: DEADLINE CALENDAR */}
-          <div className="lg:col-span-2 bg-[#161B22] border border-gray-800 rounded-3xl p-8 flex flex-col">
+          <div className="lg:col-span-2 bg-white dark:bg-[#161B22] border border-gray-200 dark:border-gray-800 rounded-3xl p-8 flex flex-col transition-colors duration-300">
             <div className="flex justify-between items-start mb-6">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-[2px] text-[#10B981] mb-1 block">Extracted Deadlines</span>
-                <h2 className="text-xl font-medium text-white">October 2026</h2>
+                <h2 className="text-xl font-medium text-gray-900 dark:text-white">October 2026</h2>
               </div>
               <CalendarIcon size={20} className="text-gray-500" />
             </div>
@@ -278,7 +278,7 @@ export default function DashboardPage() {
                 const hasDeadline = [9, 10, 12].includes(d);
                 return (
                   <div key={d} className="flex flex-col items-center justify-start h-10">
-                    <div className={`w-7 h-7 rounded-full flex items-center justify-center font-mono text-sm ${isToday ? 'bg-[#10B981] text-[#0D1117] font-bold' : 'text-gray-400'}`}>
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center font-mono text-sm ${isToday ? 'bg-[#10B981] text-white dark:text-[#0D1117] font-bold' : 'text-gray-500 dark:text-gray-400'}`}>
                       {d}
                     </div>
                     {hasDeadline && <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1"></div>}
@@ -288,14 +288,14 @@ export default function DashboardPage() {
             </div>
 
             {/* Mini Checklist */}
-            <div className="flex flex-col gap-3 mt-auto border-t border-gray-800 pt-5">
+            <div className="flex flex-col gap-3 mt-auto border-t border-gray-200 dark:border-gray-800 pt-5">
               <div className="flex items-start gap-3 group cursor-pointer">
-                <div className="w-4 h-4 rounded border border-gray-600 mt-0.5 group-hover:border-[#10B981] transition-colors"></div>
-                <span className="text-sm text-gray-300">Submit BMSIT project report <span className="text-red-400 font-mono text-xs ml-1">(Due: Today, 5 PM)</span></span>
+                <div className="w-4 h-4 rounded border border-gray-300 dark:border-gray-600 mt-0.5 group-hover:border-[#10B981] transition-colors"></div>
+                <span className="text-sm text-gray-600 dark:text-gray-300">Submit BMSIT project report <span className="text-red-500 dark:text-red-400 font-mono text-xs ml-1">(Due: Today, 5 PM)</span></span>
               </div>
               <div className="flex items-start gap-3 group cursor-pointer">
-                <div className="w-4 h-4 rounded border border-gray-600 mt-0.5 group-hover:border-[#10B981] transition-colors"></div>
-                <span className="text-sm text-gray-300">Confirm venue booking</span>
+                <div className="w-4 h-4 rounded border border-gray-300 dark:border-gray-600 mt-0.5 group-hover:border-[#10B981] transition-colors"></div>
+                <span className="text-sm text-gray-600 dark:text-gray-300">Confirm venue booking</span>
               </div>
             </div>
           </div>
@@ -319,17 +319,17 @@ export default function DashboardPage() {
 
         {/* 5. BOTTOM SECTION */}
         {/* 5. BOTTOM SECTION: ASK SAAR CHAT UI */}
-        <div className="flex flex-col bg-[#161B22] border border-gray-800 rounded-3xl overflow-hidden mt-2">
+        <div className="flex flex-col bg-white dark:bg-[#161B22] border border-gray-200 dark:border-gray-800 rounded-3xl overflow-hidden mt-2 transition-colors duration-300">
           {/* Header */}
-          <div className="flex items-center gap-3 px-6 py-4 border-b border-gray-800 bg-[#0D1117]">
+          <div className="flex items-center gap-3 px-6 py-4 border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-[#0D1117] transition-colors duration-300">
             <div className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></div>
-            <h2 className="text-[14px] font-bold uppercase tracking-[1px] text-gray-400">Ask SAAR: Local Context Search</h2>
+            <h2 className="text-[14px] font-bold uppercase tracking-[1px] text-gray-500 dark:text-gray-400">Ask SAAR: Local Context Search</h2>
           </div>
           
           {/* Chat Window */}
           <div ref={chatScrollRef} className="flex flex-col p-6 h-[300px] overflow-y-auto gap-4">
             {chatHistory.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-full text-gray-500 opacity-50">
+              <div className="flex flex-col items-center justify-center h-full text-gray-400 dark:text-gray-500 opacity-50">
                 <Search size={32} className="mb-2" />
                 <p className="text-sm">Upload a chat log, then ask questions about it.</p>
               </div>
@@ -338,8 +338,8 @@ export default function DashboardPage() {
                 <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                   <div className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                     msg.role === 'user' 
-                      ? 'bg-gray-800 text-white rounded-br-none' 
-                      : 'bg-transparent text-[#10B981] font-mono text-sm border border-gray-800/50 rounded-bl-none'
+                      ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-br-none' 
+                      : 'bg-transparent text-[#10B981] font-mono text-sm border border-gray-200 dark:border-gray-800/50 rounded-bl-none'
                   }`}>
                     {msg.content}
                   </div>
@@ -358,7 +358,7 @@ export default function DashboardPage() {
           </div>
           
           {/* Input Area */}
-          <div className="p-4 border-t border-gray-800 bg-[#0D1117]">
+          <div className="p-4 border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-[#0D1117] transition-colors duration-300">
             <form onSubmit={handleAskSaar} className="relative flex items-center">
               <input 
                 type="text" 
@@ -366,12 +366,12 @@ export default function DashboardPage() {
                 onChange={(e) => setCurrentQuery(e.target.value)}
                 disabled={!cachedChatLog || isProcessing}
                 placeholder={cachedChatLog ? "Ask about your unread messages..." : "Upload a chat log first..."}
-                className="w-full bg-[#161B22] border border-gray-700 rounded-xl py-3 pl-4 pr-12 text-sm text-white focus:outline-none focus:border-[#10B981] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-white dark:bg-[#161B22] border border-gray-300 dark:border-gray-700 rounded-xl py-3 pl-4 pr-12 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#10B981] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button 
                 type="submit" 
                 disabled={!currentQuery.trim() || isChatting || !cachedChatLog || isProcessing}
-                className="absolute right-2 p-2 bg-[#10B981] text-[#0D1117] rounded-lg hover:bg-[#0ea5e9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="absolute right-2 p-2 bg-[#10B981] text-white dark:text-[#0D1117] rounded-lg hover:bg-[#0ea5e9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <ArrowRight size={16} />
               </button>
