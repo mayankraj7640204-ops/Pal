@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ data: data[0] }, { status: 201 });
   } catch (error: any) {
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: 'Validation failed', details: error.errors }, { status: 400 });
+      return NextResponse.json({ error: 'Validation failed', details: (error as any).errors }, { status: 400 });
     }
     console.error('API Error:', error);
     return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
