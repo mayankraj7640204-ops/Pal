@@ -56,17 +56,30 @@ Want to run the SAAR node locally?
    git clone [https://github.com/your-username/SAAR.git](https://github.com/your-username/SAAR.git)
    cd SAAR
    Install dependencies:
-Bash
-npm install
-Environment Variables:
-Create a .env.local file in the root directory and add your keys:
-Code snippet
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-GEMINI_API_KEY=your_gemini_api_key
-Initialize the Database:
-Run the SQL scripts located in /backend within your Supabase SQL Editor to create the action_items and extracted_links tables.
-Engage the System:
-Bash
-npm run dev
-Open http://localhost:3000 to access the SAAR Dashboard.
+-- Create action_items table for the Action Matrix
+CREATE TABLE action_items (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  task_description TEXT NOT NULL,
+  due_date TEXT,
+  source_context TEXT,
+  is_completed BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
+);
+
+-- Create extracted_links table for the Extracted Media Vault
+CREATE TABLE extracted_links (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  link_title TEXT,
+  url TEXT NOT NULL,
+  source_platform TEXT,
+  source_context TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
+);
+
+-- Optional: Enable Row Level Security (RLS) for privacy
+ALTER TABLE action_items ENABLE ROW LEVEL SECURITY;
+ALTER TABLE extracted_links ENABLE ROW LEVEL SECURITY;
+
+-- Allow read/write access for anonymous users (for hackathon demo purposes)
+CREATE POLICY "Allow anonymous all operations on action_items" ON action_items FOR ALL USING (true);
+CREATE POLICY "Allow anonymous all operations on extracted_links" ON extracted_links FOR ALL USING (true);
