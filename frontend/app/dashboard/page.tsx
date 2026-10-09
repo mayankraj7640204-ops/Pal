@@ -1,13 +1,14 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 import { createClient } from '../../utils/supabase/client';
-import { Upload, BellRing, Search, Link as LinkIcon, Calendar as CalendarIcon, ArrowRight, Loader2 } from 'lucide-react';
+import { Upload, BellRing, Search, Link as LinkIcon, Calendar as CalendarIcon, ArrowRight, Loader2, Terminal } from 'lucide-react';
 
 const systemPrompt = `You are a chat parsing assistant. Read the following chat log and extract the actionable data. 
+Chronologically track decisions: If a time, date, or plan is proposed but later changed by another user, extract ONLY the final decision and append a boolean flag "is_revised": true.
 You MUST return ONLY a valid JSON object matching this exact structure:
 {
   "action_items": [
-    { "task_description": "string", "due_date": "YYYY-MM-DDTHH:MM:SSZ or null", "source_context": "string" }
+    { "task_description": "string", "due_date": "YYYY-MM-DDTHH:MM:SSZ or null", "source_context": "string", "is_revised": boolean }
   ],
   "extracted_links": [
     { "url": "string", "title": "string", "platform_type": "string", "shared_by": "string" }
@@ -39,6 +40,8 @@ export default function DashboardPage() {
   const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'ai'; content: string }[]>([]);
   const [currentQuery, setCurrentQuery] = useState('');
   const [isChatting, setIsChatting] = useState(false);
+  const [isPurging, setIsPurging] = useState(false);
+  const [purgeLines, setPurgeLines] = useState<string[]>([]);
   const chatScrollRef = useRef<HTMLDivElement>(null);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -131,6 +134,41 @@ export default function DashboardPage() {
     };
     
     reader.readAsText(file);
+  };
+
+  const handlePurge = () => {
+    setIsPurging(true);
+    setPurgeLines([]);
+    
+    const sequence = [
+      "> SEVERING BROWSER CACHE... [DONE]",
+      "> SHREDDING FILE [WhatsApp-Chat.txt]... [DONE]",
+      "> WIPING REACT STATE... [SUCCESS]",
+      "> TRACE ELIMINATED."
+    ];
+    
+    let step = 0;
+    const interval = setInterval(() => {
+      setPurgeLines(prev => [...prev, sequence[step]]);
+      step++;
+      
+      if (step >= sequence.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setStats({
+            action_count: 0,
+            mention_count: 0,
+            noise_filtered: 0,
+            total_messages: 0
+          });
+          setUrgentMentions([]);
+          setCachedChatLog('');
+          setChatHistory([]);
+          setIsPurging(false);
+          setPurgeLines([]);
+        }, 1500);
+      }
+    }, 400);
   };
 
   const handleAskSaar = async (e?: React.FormEvent) => {
@@ -364,13 +402,13 @@ export default function DashboardPage() {
                 type="text" 
                 value={currentQuery}
                 onChange={(e) => setCurrentQuery(e.target.value)}
-                disabled={!cachedChatLog || isProcessing}
+                disabled={!cachedChatLog || isProcessing || isPurging}
                 placeholder={cachedChatLog ? "Ask about your unread messages..." : "Upload a chat log first..."}
                 className="w-full bg-white dark:bg-[#161B22] border border-gray-300 dark:border-gray-700 rounded-xl py-3 pl-4 pr-12 text-sm text-gray-900 dark:text-white focus:outline-none focus:border-[#10B981] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               />
               <button 
                 type="submit" 
-                disabled={!currentQuery.trim() || isChatting || !cachedChatLog || isProcessing}
+                disabled={!currentQuery.trim() || isChatting || !cachedChatLog || isProcessing || isPurging}
                 className="absolute right-2 p-2 bg-[#10B981] text-white dark:text-[#0D1117] rounded-lg hover:bg-[#0ea5e9] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 <ArrowRight size={16} />
@@ -378,6 +416,30 @@ export default function DashboardPage() {
             </form>
           </div>
         </div>
+
+        {/* 6. PURGE LOCAL CACHE BURN RECEIPT */}
+        <div className="flex flex-col items-center justify-center mt-12 mb-8">
+          <button 
+            onClick={handlePurge}
+            disabled={isPurging || !cachedChatLog}
+            className="group px-6 py-3 rounded-full border border-gray-300 dark:border-gray-800 hover:border-red-500/50 hover:bg-red-500/10 text-gray-500 dark:text-gray-500 hover:text-red-500 font-mono text-xs tracking-widest uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+          >
+            <Terminal size={14} className="group-hover:text-red-500 transition-colors" />
+            Purge Local Cache
+          </button>
+
+          {(isPurging || purgeLines.length > 0) && (
+            <div className="mt-6 w-full max-w-md bg-[#000000] border border-red-500/30 rounded-lg p-4 font-mono text-[10px] md:text-xs text-red-500 text-left overflow-hidden flex flex-col gap-2 shadow-[0_0_15px_rgba(239,68,68,0.15)]">
+              {purgeLines.map((line, i) => (
+                <div key={i}>{line}</div>
+              ))}
+              {isPurging && purgeLines.length < 4 && (
+                <div className="w-2 h-4 bg-red-500 animate-pulse mt-1"></div>
+              )}
+            </div>
+          )}
+        </div>
+
       </div>
     </div>
   );

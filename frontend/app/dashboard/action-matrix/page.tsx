@@ -8,6 +8,7 @@ interface ActionTask {
   task_description: string;
   source_context?: string;
   is_completed: boolean;
+  is_revised?: boolean;
 }
 
 const mockTasks: ActionTask[] = [
@@ -178,8 +179,15 @@ function TaskCard({ task, onToggle }: { task: ActionTask; onToggle: () => void }
       </h3>
 
       {/* Source Context */}
-      <div className="font-mono text-xs text-gray-500 dark:text-gray-400 mb-6 bg-gray-50 dark:bg-[#0D1117] p-2 rounded-lg border border-gray-100 dark:border-gray-800 inline-block w-fit">
-        {task.source_context || "Origin: Unknown"}
+      <div className="flex flex-col gap-2 mb-6">
+        {task.is_revised && (
+          <div className="flex items-center gap-1.5 bg-orange-500/10 border border-orange-500/30 text-orange-500 font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded w-fit animate-pulse">
+            <span className="font-bold">⚠ REVISED DECISION</span>
+          </div>
+        )}
+        <div className="font-mono text-xs text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-[#0D1117] p-2 rounded-lg border border-gray-100 dark:border-gray-800 inline-block w-fit">
+          {task.source_context || "Origin: Unknown"}
+        </div>
       </div>
 
       {/* Checkbox Area */}

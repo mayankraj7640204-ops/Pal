@@ -98,7 +98,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <NavItem href="/dashboard/ask" icon={<MessageCircle size={18} />} label="Ask SAAR" active={pathname === '/dashboard/ask'} />
             <NavItem href="/dashboard/action-matrix" icon={<Calendar size={18} />} label="Action Matrix" active={pathname === '/dashboard/action-matrix'} />
             <NavItem href="/dashboard/extracted-media" icon={<LinkIcon size={18} />} label="Extracted Media" active={pathname === '/dashboard/extracted-media'} />
-            <NavItem href="/dashboard/vault" icon={<Database size={18} />} label="Local Vault" active={pathname === '/dashboard/vault'} />
+            <NavItem href="/dashboard/smart-planner" icon={<Calendar size={18} />} label="Smart Planner" active={pathname === '/dashboard/smart-planner'} />
           </nav>
         </div>
 
